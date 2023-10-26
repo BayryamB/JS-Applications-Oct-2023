@@ -1,0 +1,4 @@
+1.To start the server we need to open in vscode ONLY the folder "Server";
+2.Run without Debuging.
+3.Node.js.
+4.Make some requests in Postman
