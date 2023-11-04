@@ -38,7 +38,6 @@ function main() {
                 <button>Delete</button>
                 </td>`
                 tBodyList.appendChild(tr);
-                console.log(book);
                 const [editBtn, deleteBtn] = tr.querySelectorAll('button');
                 editBtn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -46,6 +45,13 @@ function main() {
                     authorRef.value = data[book].author;
                     methodPutOrPost = `put`;
                     bufferAdress = baseUrl + book;
+                });
+                deleteBtn.addEventListener('click', async(e) => {
+                    e.preventDefault();
+                    const deleting = await fetch(baseUrl + book, {
+                        method: 'DELETE'
+                    })
+                    loadBooks();
                 });
             }
 
