@@ -34,7 +34,7 @@ function main() {
                 const [editBtn, deleteBtn] = tr.querySelectorAll('button');
                 editBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    editBook(book);
+                    editBook(book, data);
                 });
             }
             
@@ -70,8 +70,9 @@ function main() {
         }
     }
     
-    async function editBook(book) {
-        //get elements and add them to the form
+    async function editBook(book, data) {
+        title.value  = data[book].title;
+        author.value = data[book].author;
         try {
             const response = await fetch(baseUrl + book, {
                 method: 'PUT',
