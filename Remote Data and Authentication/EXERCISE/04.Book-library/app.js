@@ -4,9 +4,16 @@ function main() {
     const form = document.querySelector('form');
     const [title, author] = form.querySelectorAll('input');
     const submitButton = form.querySelector('button');
-    const baseUrl = `http://localhost:3030/jsonstore/collections/books`
+    submitButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        addBook();
+    });
+    const baseUrl = `http://localhost:3030/jsonstore/collections/books/`
 
-    loadBtn.addEventListener('click', loadBooks());
+    loadBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        loadBooks();
+    });
     async function loadBooks(){
         tBodyList.innerHTML = ``;
         try {
@@ -24,10 +31,61 @@ function main() {
                 <button>Delete</button>
                 </td>`
                 tBodyList.appendChild(tr);
+                const [editBtn, deleteBtn] = tr.querySelectorAll('button');
+                editBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    editBook(book);
+                });
             }
             
         } catch (error) {
             throw new Error(`Error fetching data`)
+        }
+        
+    }
+
+    async function addBook(){
+        try {
+            if(!title.value || !author.value){
+                throw new Error('Please fill all fields');
+            }else{
+                const response = await fetch(baseUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "author": author.value,
+                        "title": title.value
+                    })
+                });
+
+            }
+            title.value = '';
+            author.value = '';
+
+            loadBooks();
+        } catch (error) {
+            throw new Error(`Error add tittle and author`);
+        }
+    }
+    
+    async function editBook(book) {
+        //get elements and add them to the form
+        try {
+            const response = await fetch(baseUrl + book, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "author": author.value,
+                    "title": title.value
+                })
+                   
+            })
+        } catch (error) {
+            
         }
     }
 }
