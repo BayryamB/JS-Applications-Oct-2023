@@ -2,11 +2,18 @@ function main() {
     const loadBtn = document.getElementById('loadBooks');
     const tBodyList = document.querySelector('tbody');
     const form = document.querySelector('form');
-    const [title, author] = form.querySelectorAll('input');
+    const [titleRef, authorRef] = form.querySelectorAll('input');
     const submitButton = form.querySelector('button');
+    let methodPutOrPost = `post`;
+    let bufferAdress = ``;
     submitButton.addEventListener('click', (e) => {
         e.preventDefault();
-        addBook();
+        if (methodPutOrPost === 'post') {
+            addBook(methodPutOrPost, baseUrl);
+        } else if (methodPutOrPost === 'put') {
+            addBook(methodPutOrPost, bufferAdress);
+        }
+        methodPutOrPost = 'post';
     });
     const baseUrl = `http://localhost:3030/jsonstore/collections/books/`
 
@@ -14,7 +21,7 @@ function main() {
         e.preventDefault();
         loadBooks();
     });
-    async function loadBooks(){
+    async function loadBooks() {
         tBodyList.innerHTML = ``;
         try {
             const response = await fetch(baseUrl);
@@ -31,64 +38,61 @@ function main() {
                 <button>Delete</button>
                 </td>`
                 tBodyList.appendChild(tr);
+                console.log(book);
                 const [editBtn, deleteBtn] = tr.querySelectorAll('button');
                 editBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    editBook(book, data);
+                    titleRef.value = data[book].title;
+                    authorRef.value = data[book].author;
+                    methodPutOrPost = `put`;
+                    bufferAdress = baseUrl + book;
                 });
             }
-            
+
         } catch (error) {
             throw new Error(`Error fetching data`)
         }
-        
     }
 
-    async function addBook(){
+    async function addBook(method, url) {
         try {
-            if(!title.value || !author.value){
+            if (!titleRef.value || !authorRef.value) {
                 throw new Error('Please fill all fields');
-            }else{
-                const response = await fetch(baseUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "author": author.value,
-                        "title": title.value
+            } else {
+                if (method === `post`) {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            "author": authorRef.value,
+                            "title": titleRef.value
+                        })
+                    });
+                } else if (method === `put`) {
+                    const response = await fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            "author": authorRef.value,
+                            "title": titleRef.value
+                        })
+
                     })
-                });
+                }
 
             }
-            title.value = '';
-            author.value = '';
-
+            titleRef.value = '';
+            authorRef.value = '';
             loadBooks();
         } catch (error) {
             throw new Error(`Error add tittle and author`);
         }
     }
-    
-    async function editBook(book, data) {
-        title.value  = data[book].title;
-        author.value = data[book].author;
-        try {
-            const response = await fetch(baseUrl + book, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "author": author.value,
-                    "title": title.value
-                })
-                   
-            })
-        } catch (error) {
-            
-        }
-    }
+
 }
 
 main();
