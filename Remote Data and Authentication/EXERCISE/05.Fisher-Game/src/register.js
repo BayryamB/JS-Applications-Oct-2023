@@ -24,6 +24,9 @@ formRef.addEventListener('submit', async (e) => {
 
     try {
         const response = await fetch(uriReg, registerData);
+        if(response.status !== 200) {
+            throw new Error('The user already exists');
+        }
         const data = await response.json();
         console.log(data);
         sessionStorage.setItem("email", data.email);
