@@ -26,6 +26,7 @@ async function onLoad(e) {
         sessionStorage.setItem("email", data.email);
         sessionStorage.setItem("accessToken", data.accessToken);
         sessionStorage.setItem("userId", data._id);
+        window.location.href = "index.html";
     } catch (error) {
         throw new Error('Error fetching');
     }
