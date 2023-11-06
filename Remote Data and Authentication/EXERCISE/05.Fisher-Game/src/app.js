@@ -5,11 +5,14 @@ const homePageRef = document.getElementById('home');
 const welcomingMsgRef = document.querySelector('.email span');
 const catchesFieldsetRef = document.getElementById('catches');
 const loadBtnRef = document.querySelector('.load');
+const addFormRef = document.getElementById('addForm');
+const addButtonRef = addForm.querySelector('button');
 
 if(sessionStorage.getItem('userId')){
     loginBtnRef.style.display = 'none';
     registerBtnRef.style.display = 'none';
     welcomingMsgRef.textContent = sessionStorage.getItem('email');
+    addButtonRef.disabled = false;
 }else{
     welcomingMsgRef.textContent = `guest`
     logoutBtnRef.style.display = 'none';
@@ -75,3 +78,16 @@ loadBtnRef.addEventListener('click', async(e) => {
     
 });
 
+addFormRef.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = new FormData(e.target);
+    const angler = form.get('angler');
+    const bait = form.get('bait');
+    const captureTime = form.get('captureTime');
+    const location = form.get('location');
+    const weight = form.get('weight');
+    const species = form.get('species');
+    const ownerId = sessionStorage.getItem('userId');
+    const uriAdd = `http://localhost:3030/data/catches`;
+    //to do , add logic for add new catch
+})
