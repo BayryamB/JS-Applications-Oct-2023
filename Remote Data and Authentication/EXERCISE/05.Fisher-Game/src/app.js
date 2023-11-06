@@ -89,5 +89,6 @@ addFormRef.addEventListener('submit', async (e) => {
     const species = form.get('species');
     const ownerId = sessionStorage.getItem('userId');
     const uriAdd = `http://localhost:3030/data/catches`;
-    //to do , add logic for add new catch
+    //to do , add logic for add new catch /validating the info /
+    //
 })
