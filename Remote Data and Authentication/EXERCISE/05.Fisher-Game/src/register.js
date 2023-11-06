@@ -6,9 +6,9 @@ formRef.addEventListener('submit', async (e) => {
     const email = form.get('email');
     const password = form.get('password');
     const repass = form.get('rePass');
-    
-    if(!email || !password || !repass || repass !== password) {
-        throw new Error ('Invalid email or password');
+
+    if (!email || !password || !repass || repass !== password) {
+        throw new Error('Invalid email or password');
     }
     const uriReg = `http://localhost:3030/users/register`
     const registerData = {
@@ -18,10 +18,10 @@ formRef.addEventListener('submit', async (e) => {
         },
         body: JSON.stringify({
             "email": email,
-            "password" : password.toString(),
+            "password": password.toString(),
         })
     }
-    
+
     try {
         const response = await fetch(uriReg, registerData);
         const data = await response.json();
@@ -31,7 +31,7 @@ formRef.addEventListener('submit', async (e) => {
         sessionStorage.setItem("userId", data._id);
         window.location.href = "index.html";
     } catch (error) {
-        throw new Error ('Problem fetching data');
+        throw new Error('Problem fetching data');
     }
 
 });
