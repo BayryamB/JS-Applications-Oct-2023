@@ -33,50 +33,7 @@ function solve() {
     catchesFieldsetRef.innerHTML = '';
     loadBtnRef.addEventListener('click', async(e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:3030/data/catches`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json",
-                //
-            }
-        });
-        const data = await response.json();
-        for (const obj in data) {
-            const angler = data[obj].angler;
-            const bait = data[obj].bait;
-            const captureTime = data[obj].captureTime;
-            const location = data[obj].location;
-            const weight = data[obj].weight;
-            const species = data[obj].species;
-            const ownerId = data[obj]._ownerId;
-            let div = document.createElement("div");
-            div.classList.add("catch");
-            div.innerHTML = `
-            <label>Angler</label>
-            <input type="text" class="angler" value="${angler}">
-            <label>Weight</label>
-            <input type="text" class="weight" value="${weight}">
-            <label>Species</label>
-            <input type="text" class="species" value="${species}">
-            <label>Location</label>
-            <input type="text" class="location" value="${location}">
-            <label>Bait</label>
-            <input type="text" class="bait" value="${bait}">
-            <label>Capture Time</label>
-            <input type="number" class="captureTime" value="${captureTime}">
-            <button class="update" data-id="${ownerId}" disabled>Update</button>
-            <button class="delete" data-id="${ownerId}" disabled>Delete</button>
-            `;
-            catchesFieldsetRef.appendChild(div);
-            if(ownerId === sessionStorage.getItem('userId')){
-                const btns = div.querySelectorAll('button');
-                let couplebtns = Array.from(btns);
-                couplebtns.forEach((btn) => {
-                    btn.disabled = false;
-                });
-            }
-            
-        }
+        onload();
         
     });
 }
@@ -112,4 +69,82 @@ addFormRef.addEventListener('submit', async (e) => {
             "_ownerId": ownerId
         })
     });
+    onload()
 })
+
+async function deleting(postId) {
+    let id = postId;
+    const endpoint = `http://localhost:3030/data/catches/${id}`;
+    try {
+        const response = await fetch(endpoint, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "x-authorization": sessionStorage.getItem("accessToken")
+            }
+        });
+    } catch (error) {
+        throw new Error (`Failed to delete element!`);
+    }
+    catchesFieldsetRef.innerHTML = '';
+    onload();
+    solve();
+}
+
+async function onload() {
+    catchesFieldsetRef.innerHTML = '';
+        const response = await fetch(`http://localhost:3030/data/catches`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                //
+            }
+        });
+        const data = await response.json();
+        for (const obj in data) {
+            const angler = data[obj].angler;
+            const bait = data[obj].bait;
+            const captureTime = data[obj].captureTime;
+            const location = data[obj].location;
+            const weight = data[obj].weight;
+            const species = data[obj].species;
+            const ownerId = data[obj]._ownerId;
+            const postId = data[obj]._id;
+            let div = document.createElement("div");
+            div.classList.add("catch");
+            div.innerHTML = `
+            <label>Angler</label>
+            <input type="text" class="angler" value="${angler}">
+            <label>Weight</label>
+            <input type="text" class="weight" value="${weight}">
+            <label>Species</label>
+            <input type="text" class="species" value="${species}">
+            <label>Location</label>
+            <input type="text" class="location" value="${location}">
+            <label>Bait</label>
+            <input type="text" class="bait" value="${bait}">
+            <label>Capture Time</label>
+            <input type="number" class="captureTime" value="${captureTime}">
+            <button class="update" data-id="${ownerId}" disabled>Update</button>
+            <button class="delete" data-id="${ownerId}" disabled>Delete</button>
+            `;
+            catchesFieldsetRef.appendChild(div);
+            if(ownerId === sessionStorage.getItem('userId')){
+                const btns = div.querySelectorAll('button');
+                let couplebtns = Array.from(btns);
+                couplebtns.forEach((btn) => {
+                    btn.disabled = false;
+                });
+                const updateBtn = couplebtns[0];
+                const deleteBtn = couplebtns[1];
+                updateBtn.addEventListener('click', async(ev) => {
+                    ev.preventDefault();
+                    //togo
+                });
+                deleteBtn.addEventListener('click', (ev) => {
+                    ev.preventDefault();
+                    deleting(postId);
+                });
+            }
+        }
+}
