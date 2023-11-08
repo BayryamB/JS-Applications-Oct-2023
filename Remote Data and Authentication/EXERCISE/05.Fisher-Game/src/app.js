@@ -39,38 +39,67 @@ function solve() {
 }
 solve();
 
-addFormRef.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = new FormData(e.target);
-    const angler = form.get('angler');
-    const bait = form.get('bait');
-    const captureTime = form.get('captureTime');
-    const location = form.get('location');
-    const weight = form.get('weight');
-    const species = form.get('species');
-    const ownerId = sessionStorage.getItem('userId');
-    const uriAdd = `http://localhost:3030/data/catches`;
-    if(!angler || !captureTime || !species || !location || !weight || !bait){
-        throw new Error ('Fill the form with correct information');
+function addElements (){
+    addFormRef.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = new FormData(e.target);
+        const angler = form.get('angler');
+        const bait = form.get('bait');
+        const captureTime = form.get('captureTime');
+        const location = form.get('location');
+        const weight = form.get('weight');
+        const species = form.get('species');
+        const ownerId = sessionStorage.getItem('userId');
+        const uriAdd = `http://localhost:3030/data/catches`;
+        if(!angler || !captureTime || !species || !location || !weight || !bait){
+            throw new Error ('Fill the form with correct information');
+        }
+        const response = await fetch(uriAdd, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "x-authorization": sessionStorage.getItem("accessToken")
+            },
+            body: JSON.stringify({
+                "angler": angler,
+                "bait": bait,
+                "captureTime": captureTime,
+                "location": location,
+                "weight": weight,
+                "species": species,
+                "_ownerId": ownerId
+            })
+        });
+
+        onload()
+    })
+}
+addElements();
+
+async function updateInfo(postId){
+    let id = postId;
+    const endpoint = `http://localhost:3030/data/catches/${id}`;
+    try {
+        const response = await fetch(endpoint, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                //"x-authorization": sessionStorage.getItem("accessToken")
+            },
+            body: JSON.stringify({
+                "angler": angler,
+                "bait": bait,
+                "captureTime": captureTime,
+                "location": location,
+                "weight": weight,
+                "species": species,
+                "_ownerId": ownerId
+            })
+        });
+    } catch (error) {
+        throw new Error (`Failed to update element!`);
     }
-    const response = await fetch(uriAdd, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "x-authorization": sessionStorage.getItem("accessToken")
-        },
-        body: JSON.stringify({
-            "angler": angler,
-            "bait": bait,
-            "captureTime": captureTime,
-            "location": location,
-            "weight": weight,
-            "species": species,
-            "_ownerId": ownerId
-        })
-    });
-    onload()
-})
+}
 
 async function deleting(postId) {
     let id = postId;
@@ -128,6 +157,7 @@ async function onload() {
             <button class="update" data-id="${ownerId}" disabled>Update</button>
             <button class="delete" data-id="${ownerId}" disabled>Delete</button>
             `;
+            div.readOnly = true;
             catchesFieldsetRef.appendChild(div);
             if(ownerId === sessionStorage.getItem('userId')){
                 const btns = div.querySelectorAll('button');
@@ -139,7 +169,7 @@ async function onload() {
                 const deleteBtn = couplebtns[1];
                 updateBtn.addEventListener('click', async(ev) => {
                     ev.preventDefault();
-                    //togo
+                    updateInfo(postId);
                 });
                 deleteBtn.addEventListener('click', (ev) => {
                     ev.preventDefault();
