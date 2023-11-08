@@ -70,13 +70,14 @@ function addElements (){
                 "_ownerId": ownerId
             })
         });
-
+        form.refresh();
         onload()
     })
 }
 addElements();
 
 async function updateInfo(postId){
+    //to modify
     let id = postId;
     const endpoint = `http://localhost:3030/data/catches/${id}`;
     try {
@@ -143,17 +144,17 @@ async function onload() {
             div.classList.add("catch");
             div.innerHTML = `
             <label>Angler</label>
-            <input type="text" class="angler" value="${angler}">
+            <input type="text" class="angler" readonly value="${angler}">
             <label>Weight</label>
-            <input type="text" class="weight" value="${weight}">
+            <input type="text" class="weight" readonly value="${weight}">
             <label>Species</label>
-            <input type="text" class="species" value="${species}">
+            <input type="text" class="species" readonly value="${species}">
             <label>Location</label>
-            <input type="text" class="location" value="${location}">
+            <input type="text" class="location" readonly value="${location}">
             <label>Bait</label>
-            <input type="text" class="bait" value="${bait}">
+            <input type="text" class="bait" readonly value="${bait}">
             <label>Capture Time</label>
-            <input type="number" class="captureTime" value="${captureTime}">
+            <input type="number" class="captureTime" readonly value="${captureTime}">
             <button class="update" data-id="${ownerId}" disabled>Update</button>
             <button class="delete" data-id="${ownerId}" disabled>Delete</button>
             `;
