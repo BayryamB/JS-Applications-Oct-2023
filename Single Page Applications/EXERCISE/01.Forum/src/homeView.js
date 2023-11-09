@@ -1,7 +1,7 @@
-const main = document.querySelector('main');
 const topicContainer = document.querySelector('div.topic-container');
 const newPostDiv = document.querySelector('.new-topic-border');
-const postURI = `http://localhost:3030/jsonstore/collections/myboard/posts`
+const postURI = `http://localhost:3030/jsonstore/collections/myboard/posts`;
+import {loadDetails} from './loadDetails.js';
 export function loadHomePage() {
     newPostDiv.innerHTML = `
     <div class="header-background">
@@ -57,7 +57,11 @@ export function loadHomePage() {
                 </div>
             </div>`
             topicContainer.appendChild(div);
-            //to add the eventlisteners
+            const titleAnchor = div.querySelector('.normal');
+            titleAnchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                loadDetails(topicName, username, postText, date, postId);
+            })
             
         }
         } catch (error) {
