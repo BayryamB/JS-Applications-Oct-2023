@@ -28,7 +28,7 @@ export function loadHomePage() {
 
         </form>`;
 
-
+    // Loading the topic form
     async function loadTopics(){
         try {
             const request = await fetch(postURI)
@@ -85,6 +85,7 @@ export function loadHomePage() {
         });
     }
     addBtns();
+    //Add new post
     async function publishContent() {
         const topicName = document.querySelector('#topicName').value;
         const username = document.querySelector('#username').value;

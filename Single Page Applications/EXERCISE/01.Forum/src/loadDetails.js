@@ -48,6 +48,7 @@ export function loadDetails(topicName, username, postText, date, postId){
 
     });
     main.appendChild(currentUserCommentDiv);
+    //Loading comments 
     async function loadComments (){
         let comment = await fetch(commentsURI);
         let data = await comment.json();
@@ -83,6 +84,7 @@ export function loadDetails(topicName, username, postText, date, postId){
         }
     }
     loadComments();
+    //Add comments
     async function addComments(comment, username) {
         let commentDate = new Date();
         const response = await fetch(commentsURI, {
@@ -99,31 +101,3 @@ export function loadDetails(topicName, username, postText, date, postId){
         })
     }
 }
-/*
-*/
-/*
-<div class="comment">
-    <div class="header">
-        <img src="./static/profile.png" alt="avatar">
-        <p><span>David</span> posted on <time>2020-10-10 12:08:28</time></p>
-
-        <p class="post-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure facere sint
-            dolorem quam,
-            accusantium ipsa veniam laudantium inventore aut, tenetur quibusdam doloribus. Incidunt odio
-            nostrum facilis ipsum dolorem deserunt illum?</p>
-    </div>
-
-
-    <div id="user-comment">
-        <div class="topic-name-wrapper">
-            <div class="topic-name">
-                <p><strong>Daniel</strong> commented on <time>3/15/2021, 12:39:02 AM</time></p>
-                <div class="post-content">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure facere sint
-                        dolorem quam.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-*/
