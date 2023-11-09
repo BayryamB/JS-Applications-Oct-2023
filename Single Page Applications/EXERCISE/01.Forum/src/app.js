@@ -6,3 +6,4 @@ homeBtn.addEventListener('click', (e) => {
     e.preventDefault();
     loadHomePage();
 });
+//need fixes for loading  home page

@@ -1,6 +1,6 @@
 const commentsURI = `http://localhost:3030/jsonstore/collections/myboard/comments`;
 const main = document.querySelector('main');
-
+// Loading the comments page
 export function loadDetails(topicName, username, postText, date, postId){
     
     const div = document.createElement('div');

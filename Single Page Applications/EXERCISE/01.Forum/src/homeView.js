@@ -2,7 +2,7 @@ const topicContainer = document.querySelector('div.topic-container');
 const newPostDiv = document.querySelector('.new-topic-border');
 const postURI = `http://localhost:3030/jsonstore/collections/myboard/posts`;
 import {loadDetails} from './loadDetails.js';
-
+//Loading the homepage
 export function loadHomePage() {
     newPostDiv.innerHTML = `
     <div class="header-background">
@@ -70,6 +70,7 @@ export function loadHomePage() {
         }
     }
     loadTopics();
+    // Add buttons
     function addBtns(){
         const cancelButton = document.querySelector('.cancel');
         const postButton = document.querySelector('.public');
@@ -108,6 +109,7 @@ export function loadHomePage() {
         clearInputs();
         loadTopics()
     }
+    //Clear the input
     function clearInputs() {
         document.querySelector('#topicName').value = '';
         document.querySelector('#username').value = '';
