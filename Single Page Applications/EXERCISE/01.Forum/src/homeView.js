@@ -2,6 +2,7 @@ const topicContainer = document.querySelector('div.topic-container');
 const newPostDiv = document.querySelector('.new-topic-border');
 const postURI = `http://localhost:3030/jsonstore/collections/myboard/posts`;
 import {loadDetails} from './loadDetails.js';
+
 export function loadHomePage() {
     newPostDiv.innerHTML = `
     <div class="header-background">
@@ -69,17 +70,20 @@ export function loadHomePage() {
         }
     }
     loadTopics();
-    const cancelButton = document.querySelector('.cancel');
-    const postButton = document.querySelector('.public');
-    cancelButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        clearInputs();
-    });
-    postButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        publishContent()
-        clearInputs();
-    });
+    function addBtns(){
+        const cancelButton = document.querySelector('.cancel');
+        const postButton = document.querySelector('.public');
+        cancelButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            clearInputs();
+        });
+        postButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            publishContent()
+            clearInputs();
+        });
+    }
+    addBtns();
     async function publishContent() {
         const topicName = document.querySelector('#topicName').value;
         const username = document.querySelector('#username').value;

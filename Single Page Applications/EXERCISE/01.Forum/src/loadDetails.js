@@ -1,5 +1,6 @@
 const commentsURI = `http://localhost:3030/jsonstore/collections/myboard/comments`;
 const main = document.querySelector('main');
+
 export function loadDetails(topicName, username, postText, date, postId){
     
     const div = document.createElement('div');
@@ -18,21 +19,7 @@ export function loadDetails(topicName, username, postText, date, postId){
         <p><span>${username}</span> posted on <time>${formattedDate}</time></p>
 
         <p class="post-content">${postText}</p>
-    </div>
-
-
-    <div id="user-comment">
-        <div class="topic-name-wrapper">
-            <div class="topic-name">
-                <p><strong>Daniel</strong> commented on <time>3/15/2021, 12:39:02 AM</time></p>
-                <div class="post-content">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure facere sint
-                        dolorem quam.</p>
-                </div>
-            </div>
-        </div>
     </div>`;
-    const userComment = document.createElement('div');
     main.innerHTML = ``;
     main.appendChild(div);
     const currentUserCommentDiv = document.createElement('div');
@@ -58,10 +45,44 @@ export function loadDetails(topicName, username, postText, date, postId){
         addComments(commentInfo, usernameInput);
         commentInfo.value = '';
         usernameInput.value = '';
-        
+
     });
     main.appendChild(currentUserCommentDiv);
+    async function loadComments (){
+        let comment = await fetch(commentsURI);
+        let data = await comment.json();
+        for (const comment in data) {
+            let commentId = data[comment].postId;
+            let commentInfo = data[comment].comment;
+            let username = data[comment].username;
+            let date = data[comment].date;
+            let postDate = new Date(date);
+            let year =  postDate.getFullYear();
+            let month = String(postDate.getMonth() + 1).padStart(2, '0'); 
+            let day = String(postDate.getDate()).padStart(2, '0');
+            let hour = String(postDate.getHours()).padStart(2, '0');
+            let minute = String(postDate.getMinutes()).padStart(2, '0');
+            let second = String(postDate.getSeconds()).padStart(2, '0');
+            let amOrPm = hour >= 12 ? 'PM' : 'AM';
+            let formattedDate = `${year}/${month}/${day}, ${hour}:${minute}:${second} ${amOrPm}`;
+            const divComment = document.querySelector('.comment');
+            if(commentId === postId){
+                divComment.innerHTML += `
+            <div id="user-comment">
+                <div class="topic-name-wrapper">
+                    <div class="topic-name">
+                    <p><strong>${username}</strong> commented on <time>${formattedDate}</time></p>
+                        <div class="post-content">
+                        <p>${commentInfo}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+            }
 
+        }
+    }
+    loadComments();
     async function addComments(comment, username) {
         let commentDate = new Date();
         const response = await fetch(commentsURI, {
@@ -72,13 +93,13 @@ export function loadDetails(topicName, username, postText, date, postId){
             body: JSON.stringify({
                 "comment": comment.value,
                 "username": username.value,
+                "date": commentDate,
+                "postId": postId,
             })
         })
     }
 }
-/*<div class="answer-comment">
-                
-            </div>
+/*
 */
 /*
 <div class="comment">
