@@ -76,33 +76,33 @@ export function loadHomePage() {
         publishContent()
         clearInputs();
     });
-}
-export function clearInputs() {
-    document.querySelector('#topicName').value = '';
-    document.querySelector('#username').value = '';
-    document.querySelector('#postText').value = '';
-}
-export async function publishContent() {
-    const topicName = document.querySelector('#topicName').value;
-    const username = document.querySelector('#username').value;
-    const postText = document.querySelector('#postText').value;
-    if(!topicName || !username || !postText){
-        throw new Error('Please fill the information');
-    }
-    let date = new Date();
-    date.setUTCHours(date.getUTCHours() + 2);
-    const response = await fetch(postURI, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "topicName": topicName,
-            "username": username,
-            "postText": postText,
-            "date": date,
+    async function publishContent() {
+        const topicName = document.querySelector('#topicName').value;
+        const username = document.querySelector('#username').value;
+        const postText = document.querySelector('#postText').value;
+        if(!topicName || !username || !postText){
+            throw new Error('Please fill the information');
+        }
+        let date = new Date();
+        date.setUTCHours(date.getUTCHours() + 2);
+        const response = await fetch(postURI, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "topicName": topicName,
+                "username": username,
+                "postText": postText,
+                "date": date,
+            })
         })
-    })
-    clearInputs();
-    loadTopics()
+        clearInputs();
+        loadTopics()
+    }
+    function clearInputs() {
+        document.querySelector('#topicName').value = '';
+        document.querySelector('#username').value = '';
+        document.querySelector('#postText').value = '';
+    }
 }
