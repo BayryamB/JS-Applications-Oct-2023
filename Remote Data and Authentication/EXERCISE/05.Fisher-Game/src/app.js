@@ -70,7 +70,7 @@ function addElements (){
                 "_ownerId": ownerId
             })
         });
-        form.refresh();
+        //add function to clear input
         onload()
     })
 }
