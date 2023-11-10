@@ -1,7 +1,6 @@
 const main = document.querySelector('main');
 const postURI = `http://localhost:3030/jsonstore/collections/myboard/posts`;
 const div = document.createElement('div');
-
 div.classList.add('topic-container');
 
 import {loadDetails} from './loadDetails.js';
@@ -38,6 +37,7 @@ export function loadHomePage() {
     // Loading the topic form
     async function loadTopics(){
         try {
+            div.innerHTML = '';
             const request = await fetch(postURI)
             const data = await request.json();
 
@@ -66,7 +66,7 @@ export function loadHomePage() {
                     </div>
                 </div>`
             div.appendChild(divWrapper);
-            const titleAnchor = div.querySelector('.normal');
+            const titleAnchor = divWrapper.querySelector('.normal');
             titleAnchor.addEventListener('click', (e) => {
                 e.preventDefault();
                 loadDetails(topicName, username, postText, date, postId);

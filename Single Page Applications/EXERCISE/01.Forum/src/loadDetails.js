@@ -52,6 +52,7 @@ export function loadDetails(topicName, username, postText, date, postId){
     async function loadComments (){
         let comment = await fetch(commentsURI);
         let data = await comment.json();
+        const divComment = document.querySelector('.comment');
         for (const comment in data) {
             let commentId = data[comment].postId;
             let commentInfo = data[comment].comment;
@@ -66,10 +67,10 @@ export function loadDetails(topicName, username, postText, date, postId){
             let second = String(postDate.getSeconds()).padStart(2, '0');
             let amOrPm = hour >= 12 ? 'PM' : 'AM';
             let formattedDate = `${year}/${month}/${day}, ${hour}:${minute}:${second} ${amOrPm}`;
-            const divComment = document.querySelector('.comment');
             if(commentId === postId){
-                divComment.innerHTML += `
-            <div id="user-comment">
+                const userCommentDiv = document.createElement('div');
+                userCommentDiv.classList.add('user-comment');
+                userCommentDiv.innerHTML = `
                 <div class="topic-name-wrapper">
                     <div class="topic-name">
                     <p><strong>${username}</strong> commented on <time>${formattedDate}</time></p>
@@ -78,9 +79,9 @@ export function loadDetails(topicName, username, postText, date, postId){
                         </div>
                     </div>
                 </div>
-            </div>`
+                `
+                divComment.appendChild(userCommentDiv);
             }
-
         }
     }
     loadComments();
@@ -99,5 +100,7 @@ export function loadDetails(topicName, username, postText, date, postId){
                 "postId": postId,
             })
         })
+        div.innerHTML = '';
+        loadDetails(topicName, username, postText, date, postId);
     }
 }
