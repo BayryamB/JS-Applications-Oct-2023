@@ -1,8 +1,7 @@
 const commentsURI = `http://localhost:3030/jsonstore/collections/myboard/comments`;
 const main = document.querySelector('main');
 // Loading the comments page
-export function loadDetails(topicName, username, postText, date, postId){
-    
+export function loadDetails(username, postText, date, postId){
     const div = document.createElement('div');
     let postDate = new Date(date);
     let year =  postDate.getFullYear();
@@ -42,7 +41,10 @@ export function loadDetails(topicName, username, postText, date, postId){
     const usernameInput = currentUserCommentDiv.querySelector('#username');
     postButton.addEventListener('click', (e) => {
         e.preventDefault();
-        addComments(commentInfo, usernameInput);
+        if(!commentInfo.value || !usernameInput.value){
+            throw new Error('Please fill the information');
+        }
+        addComments(commentInfo, usernameInput, username, postText, date, postId);
         commentInfo.value = '';
         usernameInput.value = '';
 
@@ -86,21 +88,24 @@ export function loadDetails(topicName, username, postText, date, postId){
     }
     loadComments();
     //Add comments
-    async function addComments(comment, username) {
+    async function addComments(comment, username, userN, postT, d, pstId) {
         let commentDate = new Date();
-        const response = await fetch(commentsURI, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "comment": comment.value,
-                "username": username.value,
-                "date": commentDate,
-                "postId": postId,
+        try {
+            const response = await fetch(commentsURI, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "comment": comment.value,
+                    "username": username.value,
+                    "date": commentDate,
+                    "postId": postId,
+                })
             })
-        })
-        div.innerHTML = '';
-        loadDetails(topicName, username, postText, date, postId);
+        } catch (error) {
+            throw new Error('Could not make post request')
+        }
+        loadDetails(userN, postT, d, pstId);
     }
 }
