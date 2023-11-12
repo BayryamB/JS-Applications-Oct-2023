@@ -1,4 +1,5 @@
-export function registerPlugin (){
+import {loadHome} from './app.js';
+export function registerPlugin (register){
     const section = document.getElementById('form-sign-up');
     section.innerHTML = `
         <form
@@ -48,6 +49,18 @@ export function registerPlugin (){
     const form = document.getElementById('register-form');
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log(`register working`);
+        let email = document.getElementById(`email`).value;
+        let password = document.getElementById(`password`).value;
+        let repeatPassword = document.getElementById(`repeatPassword`).value;
+        if (password === repeatPassword && password.length > 5) {
+          localStorage.setItem("email", email);
+          localStorage.setItem("password", password);
+          section.innerHTML = '';
+        }else{
+          throw new Error('Please enter a valid password');
+        }
+        register.push(email);
     });
+  loadHome();
+
 }

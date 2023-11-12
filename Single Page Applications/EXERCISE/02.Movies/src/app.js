@@ -1,8 +1,8 @@
 import { registerPlugin } from "./signUp.js";
-// import { loginPlugin } from "./formLogin.js";
-// import { logoutPlugin } from "./logout.js";
+import { login } from "./formLogin.js";
+import { logout } from "./logout.js";
 
-function loadHome(params) {
+export function loadHome(params) {
     const homePageSection = document.getElementById('home-page');
     const addMovieSection = document.getElementById('add-movie');
     const movieExampleSection = document.getElementById('movie-example');
@@ -17,19 +17,30 @@ function loadHome(params) {
     const logoutBtn = navBar.querySelectorAll('a')[2];
     const loginBtn = navBar.querySelectorAll('a')[3];
     const registerBtn = navBar.querySelectorAll('a')[4];
-    
+    let registered = [];
+    function isLogedUser() {
+        console.log(`working`);
+        if(localStorage.length > 0) {
+            loginBtn.style.display = 'none';
+            registerBtn.style.display = 'none';
+            welcomeMessage.textContent = `Welcome ${localStorage.getItem('email')}`;
+        }
+    }
+    isLogedUser();
     registerBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        registerPlugin();
-
+        registerPlugin(registered);
+        
     });
+
     loginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-
+        login(registered);
     });
+
     logoutBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        
+        logout();
     });
 
     }   
