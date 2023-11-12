@@ -1,7 +1,4 @@
-
-
-let section = `
-    <section id="movie-example" class="view-section">
+/*
         <div class="container">
           <div class="row bg-light text-dark">
             <h1>Movie title: Black Widow</h1>
@@ -27,5 +24,4 @@ let section = `
             </div>
           </div>
         </div>
-      </section>
-`
+*/

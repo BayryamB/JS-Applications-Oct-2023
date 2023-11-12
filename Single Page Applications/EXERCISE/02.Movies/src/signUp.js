@@ -1,8 +1,6 @@
-export function registerPlugin(){
-    console.log(`registerPlugin is working`);
-}
-let section = `
-    <section id="form-sign-up" class="view-section">
+export function registerPlugin (){
+    const section = document.getElementById('form-sign-up');
+    section.innerHTML = `
         <form
           id="register-form"
           class="text-center border border-light p-5"
@@ -46,5 +44,10 @@ let section = `
 
           <button type="submit" class="btn btn-primary">Register</button>
         </form>
-    </section>
-`
+    `
+    const form = document.getElementById('register-form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        console.log(`register working`);
+    });
+}

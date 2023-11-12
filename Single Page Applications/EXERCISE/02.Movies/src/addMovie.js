@@ -1,8 +1,5 @@
 
-
-
-let section = `
-    <section id="add-movie" class="view-section">
+/*
         <form
           id="add-movie-form"
           class="text-center border border-light p-5"
@@ -42,5 +39,4 @@ let section = `
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-      </section>
-`
+*/

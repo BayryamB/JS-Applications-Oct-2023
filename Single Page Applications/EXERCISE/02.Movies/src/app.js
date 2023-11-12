@@ -1,16 +1,16 @@
-import { registerPlugin } from "./register.js";
-import { loginPlugin } from "./login.js";
-import { logoutPlugin } from "./logout.js";
-import { homeView } from "./home.js";   
-import { footer } from "./footer.js";
-const homePageSection = document.getElementById('home-page');
-const addMovieSection = document.getElementById('add-movie');
-const movieExampleSection = document.getElementById('movie-example');
-const editMovieSection = document.getElementById('edit-movie');
-const formLogin = document.getElementById('form-login');
-const formSignUp = document.getElementById('form-sign-up');
+import { registerPlugin } from "./signUp.js";
+// import { loginPlugin } from "./formLogin.js";
+// import { logoutPlugin } from "./logout.js";
 
-function navBarLogic() {
+function loadHome(params) {
+    const homePageSection = document.getElementById('home-page');
+    const addMovieSection = document.getElementById('add-movie');
+    const movieExampleSection = document.getElementById('movie-example');
+    const editMovieSection = document.getElementById('edit-movie');
+    const formLogin = document.getElementById('form-login');
+    const formSignUp = document.getElementById('form-sign-up');
+
+    function navBarLogic() {
     const navBar = document.querySelector('nav');
     const homePage = navBar.querySelectorAll('a')[0];
     const welcomeMessage = navBar.querySelectorAll('a')[1];
@@ -20,25 +20,20 @@ function navBarLogic() {
     
     registerBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        homePageSection.style.display = 'none';
-        addMovieSection.style.display = 'none';
-        movieExampleSection.style.display = 'none';
-        editMovieSection.style.display = 'none';
-        formLogin.style.display = 'none';
-        formSignUp.style.display = 'block';
         registerPlugin();
+
     });
     loginBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        loginPlugin();
+
     });
     logoutBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        logoutPlugin();
-        localStorage.clear();
         
     });
 
-}   
+    }   
 
-navBarLogic();
+    navBarLogic();
+}
+loadHome();

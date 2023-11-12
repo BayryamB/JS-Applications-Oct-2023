@@ -1,10 +1,5 @@
-export function loginPlugin(){
-    console.log(`loginPlugin is working`);
-}
-
-let section = `
-    <section id="form-login" class="view-section">
-        <form
+/*
+<form
           id="login-form"
           class="text-center border border-light p-5"
           action=""
@@ -35,5 +30,4 @@ let section = `
 
           <button type="submit" class="btn btn-primary">Login</button>
         </form>
-    </section>
-`
+*/
