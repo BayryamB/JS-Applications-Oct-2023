@@ -1,4 +1,5 @@
-import {loadHome} from './app.js';
+import {app} from './app.js';
+import {logedCheck} from './logedCheck.js';
 export function registerPlugin (register){
     const section = document.getElementById('form-sign-up');
     section.innerHTML = `
@@ -56,11 +57,11 @@ export function registerPlugin (register){
           localStorage.setItem("email", email);
           localStorage.setItem("password", password);
           section.innerHTML = '';
+          logedCheck();
         }else{
           throw new Error('Please enter a valid password');
         }
-        register.push(email);
     });
-  loadHome();
+
 
 }
