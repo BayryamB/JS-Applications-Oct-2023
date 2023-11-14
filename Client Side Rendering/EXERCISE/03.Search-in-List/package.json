@@ -1,0 +1,19 @@
+{
+  "name": "03.search-in-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "search.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "html": "^1.0.0",
+    "lit": "^3.0.2"
+  }
+}
