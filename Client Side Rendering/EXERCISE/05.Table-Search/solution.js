@@ -27,7 +27,7 @@ function solve() {
       let course = person.course;
       return html`
       <tr>
-          <td>${firstName}${lastName}</td>
+          <td>${firstName} ${lastName}</td>
           <td>${email}</td>
           <td>${course}</td>
       </tr>
@@ -35,9 +35,21 @@ function solve() {
    }
 
    function onClick() {
-      inputValue = inputRef.value;
-
-
+      const inputValue = inputRef.value;
+      if(inputValue){
+         const values = Array.from(document.querySelectorAll('tr'));
+         values.map(x => {
+            console.log(x);
+            let searched = x.textContent.toLowerCase();
+            if(searched.includes(inputValue.toLowerCase())){
+               x.classList.add('select');
+               return;
+            }else{
+               x.classList.remove('select');
+            }
+         })
+      }
+      inputRef.value = '';
    }
 }
 solve();
