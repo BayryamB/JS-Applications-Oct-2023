@@ -3,14 +3,14 @@ import { html, render } from "./node_modules/lit-html/lit-html.js"
 const url =  'http://localhost:3030/jsonstore/collections/books'
 export function addForm(formRef) {
         const content = html`
-        <form id="add-form">
-            <h3>Add book</h3>
-            <label>TITLE</label>
-            <input type="text" name="title" placeholder="Title...">
-            <label>AUTHOR</label>
-            <input type="text" name="author" placeholder="Author...">
-            <input type="submit" value="Submit">
-        </form>
+            <form id="add-form">
+                <h3>Add book</h3>
+                <label>TITLE</label>
+                <input type="text" name="title" placeholder="Title...">
+                <label>AUTHOR</label>
+                <input type="text" name="author" placeholder="Author...">
+                <input type="submit" value="Submit">
+            </form>
         `;
     
     render(content, formRef);

@@ -4,7 +4,7 @@ import { loader } from "./loader.js";
 import { loadBooks } from "./loadBooks.js";
 import { addForm } from "./addForm.js";
 
-const loadBooksUrl = `http://localhost:3030/jsonstore/collections/books`;
+const loadBooksUrl = `http://localhost:3030/jsonstore/collections/books/`;
 const mainContainer = document.querySelector('#container');
 const formRef = document.querySelector('#form');
 function solve() {
