@@ -16,7 +16,5 @@ function solve() {
         e.preventDefault();
         loadBooks(loadBooksUrl, mainContainer);
     });
-    
-
 }
 solve();
