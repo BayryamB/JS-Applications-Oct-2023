@@ -9,8 +9,8 @@
 // [x] catalog
 // [x] login
 // [x] register
-// [ ] create
-// [ ] details
+// [x] create
+// [x] details
 // [ ] like
 // [ ] edit
 // [ ] delete
