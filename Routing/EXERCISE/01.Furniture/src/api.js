@@ -3,6 +3,7 @@ import { userData } from "./getUserData.js";
 const host = "http://localhost:3030";
 
 async function requester(method, url, data){
+
     const option = {
         method,
         headers: {},
@@ -13,6 +14,7 @@ async function requester(method, url, data){
     }
 
     const userInfo = userData.getUserData();
+    console.log(userInfo);
     if(userInfo){
         option.headers['x-authorization'] = userInfo.accessToken;
     }
