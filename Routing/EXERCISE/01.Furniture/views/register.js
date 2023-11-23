@@ -1,7 +1,7 @@
 import { html, render } from "../node_modules/lit-html/lit-html.js";
 import { post } from "../src/api.js";
 import { userData } from "../src/getUserData.js";
-
+import page from "../node_modules/page/page.mjs";
 const container = document.querySelector('.container');
 const registerUrl = '/users/register';
 
@@ -51,8 +51,6 @@ export function register() {
         }
         
         const request = await post(registerUrl, data);
-        //Error , that gives me undefined
-        console.log(request);
         userData.setUserData(request);
     }
     

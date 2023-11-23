@@ -28,10 +28,12 @@ async function requester(method, url, data){
             return response;
 
         }
+        return response.json();
     } catch (error) {
         alert(error.message);
         throw new Error(error)
     }
+    
 }
 
 export function get(url) {
