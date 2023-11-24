@@ -4,7 +4,7 @@ import { loginView } from "./loginView.js";
 import { homeView } from "./homeView.js";
 import { isAuth } from "./isAuth.js";
 
-
+page(isAuth)
 page(navbarView);
 page('/', homeView);
 page('/login', loginView);
