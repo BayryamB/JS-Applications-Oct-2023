@@ -60,6 +60,9 @@ function onCreate(event) {
     const category = formData.get('category');
     const description = formData.get('description');
     const price = formData.get('price');
+    if(!name || !imageUrl || !category || !description || !price){
+        return alert('All fields are required');
+    }
     const data = post('/data/products', {
         name,
         imageUrl,
