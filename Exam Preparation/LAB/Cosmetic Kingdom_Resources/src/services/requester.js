@@ -41,7 +41,7 @@ export function get(url) {
 export function post(url, data) {
     return requester('POST', url, data);
 }
-export function put(url) {
+export function put(url, data) {
     return requester('PUT', url, data);
 }
 export function del(url) {

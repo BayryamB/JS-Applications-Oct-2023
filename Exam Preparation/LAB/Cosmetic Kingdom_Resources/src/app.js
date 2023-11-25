@@ -2,6 +2,7 @@ import page from "../node_modules/page/page.mjs";
 import { create } from "./views/create.js";
 import { dashboard } from "./views/dashboard.js";
 import { details } from "./views/details.js";
+import { onEdit } from "./views/edit.js";
 import { home } from "./views/home.js";
 import { login } from "./views/login.js";
 import { logout } from "./views/logout.js";
@@ -16,6 +17,7 @@ page('/create', create);
 page('/login', login);
 page('/register', register);
 page('/dashboard', dashboard);
+page('/details/:id', details);
 page.start();
 
 

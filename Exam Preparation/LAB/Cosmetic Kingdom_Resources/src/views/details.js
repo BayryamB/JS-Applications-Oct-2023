@@ -2,15 +2,15 @@ import { userService } from "../services/userService.js";
 import { html, render} from "../../node_modules/lit-html/lit-html.js";
 import { post } from "../services/requester.js";
 import page from "../../node_modules/page/page.mjs";
-
+import { onEdit } from "./edit.js";
 function detailsView(obj){
     const user = userService.getUserData();
     function isCreator() {
         if(obj._ownerId == user._id){
             return html`
             <div id="action-buttons">
-              <a href="" id="edit-btn">Edit</a>
-              <a href="" id="delete-btn">Delete</a>
+              <a href="/edit" @click=${callEdit} id="edit-btn">Edit</a>
+              <a href="/delete" @click=${onEdit} id="delete-btn">Delete</a>
             </div>
             `;
         }else{
@@ -19,6 +19,10 @@ function detailsView(obj){
             return likes;
         }
         
+    }
+    function callEdit(event){
+        event.preventDefault();
+        onEdit(obj);
     }
     function isLoged(){
         if(user){
@@ -55,6 +59,5 @@ function detailsView(obj){
     `
 }
 export function details(obj) {
-    console.log(obj);
     render(detailsView(obj), document.querySelector('main'));
 }
