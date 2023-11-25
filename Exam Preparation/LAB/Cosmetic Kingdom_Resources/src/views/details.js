@@ -3,6 +3,7 @@ import { html, render} from "../../node_modules/lit-html/lit-html.js";
 import { post } from "../services/requester.js";
 import page from "../../node_modules/page/page.mjs";
 import { onEdit } from "./edit.js";
+import { onDelete } from "./delete.js";
 function detailsView(obj){
     const user = userService.getUserData();
     function isCreator() {
@@ -10,7 +11,7 @@ function detailsView(obj){
             return html`
             <div id="action-buttons">
               <a href="/edit" @click=${callEdit} id="edit-btn">Edit</a>
-              <a href="/delete" @click=${onEdit} id="delete-btn">Delete</a>
+              <a href="/delete" @click=${callDelete} id="delete-btn">Delete</a>
             </div>
             `;
         }else{
@@ -19,6 +20,10 @@ function detailsView(obj){
             return likes;
         }
         
+    }
+    function callDelete(event){
+        event.preventDefault();
+        onDelete(obj);
     }
     function callEdit(event){
         event.preventDefault();
