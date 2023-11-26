@@ -6,6 +6,7 @@ import { fruitsView } from "./views/fruitsPage.js";
 import { loginPage } from "./views/loginPage.js";
 import { registerPage } from "./views/registerPage.js";
 import { logoutPage } from "./views/logoutPage.js";
+import { create } from "./views/addPage.js";
 //import { requester } from "./services/requester.js";
 
 page.start();
@@ -17,6 +18,7 @@ page('/fruits', fruitsView);
 page('/login', loginPage);
 page('/register', registerPage);
 page('/logout', logoutPage);
+page('/add', create);
 
 
 
