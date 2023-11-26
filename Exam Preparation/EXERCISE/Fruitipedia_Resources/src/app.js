@@ -20,7 +20,7 @@ page('/logout', logoutPage);
 
 
 
-function updateNav(){
+export function updateNav(){
     const userData = userService.getUserData();
     if(userData){
         document.querySelector('.user').style.display = 'inline-block';
