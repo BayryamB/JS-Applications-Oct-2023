@@ -1,8 +1,6 @@
 import page from "../../node_modules/page/page.mjs";
 import { html, render } from "../../node_modules/lit-html/lit-html.js";
-import { userService } from "../services/userService.js";
 import { post } from "../services/requester.js";
-import { updateNav } from "../app.js";
 const url = '/data/fruits';
 
 function createTemlate(){
@@ -56,7 +54,6 @@ async function onCreate(e){
     }
     try {
         const response = await post(url, {name, imageUrl, description, nutrition});
-        updateNav();
         page.redirect('/fruits');
     } catch (error) {
         return alert(error.message);

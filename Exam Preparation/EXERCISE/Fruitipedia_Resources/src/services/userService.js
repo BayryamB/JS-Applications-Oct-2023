@@ -9,8 +9,8 @@ const userService = {
         localStorage.removeItem('userData');
     },
     getUserId: () => {
-        const userData = this.getUserData();
-        return userData._id
+        const userData = userService.getUserData();
+        return userData._id;
     }
 };
 export { userService };
