@@ -9,7 +9,6 @@ function productsTemplate(data) {
         return html`<h2>No fruit info yet.</h2>`;
     }else{
         const fruits = data;
-        console.log(fruits);
         return html`
             <h2>Fruits</h2>
             <section id="dashboard">
