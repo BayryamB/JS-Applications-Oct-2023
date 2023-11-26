@@ -17,7 +17,7 @@
     "chai": "4.3.4",
     "http-server": "^14.1.1",
     "mocha": "^10.2.0",
-    "playwright-chromium": "1.9.2"
+    "playwright-chromium": "1.39"
   },
   "directories": {
     "test": "tests"
