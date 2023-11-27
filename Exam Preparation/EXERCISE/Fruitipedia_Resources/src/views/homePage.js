@@ -11,8 +11,7 @@ function homeTemplate(){
           />
 
         </section>
-    `
-
+    `;
 }
 export function homeView(){
     render(homeTemplate(), document.querySelector('main'));
