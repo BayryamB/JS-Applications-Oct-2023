@@ -18,6 +18,7 @@ page('/register', registerPage);
 page('/logout', logoutPage);
 page('/add', create);
 page('/details/:id', detailsView);
+page('/create', create);
 
 
 

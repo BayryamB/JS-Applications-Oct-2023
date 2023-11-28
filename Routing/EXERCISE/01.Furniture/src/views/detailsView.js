@@ -4,7 +4,7 @@ import { userService } from "../services/userService.js";
 
 
 function detailsTemplate(item){
-    const ownerId = item.ownerId;
+    const ownerId = item._ownerId;
     const userId = userService.getUserId();
     let isOwner = false;
     if(ownerId === userId){
@@ -20,7 +20,7 @@ function detailsTemplate(item){
             <div class="col-md-4">
                 <div class="card text-white bg-primary">
                     <div class="card-body">
-                        <img src='./../${item.img}' />
+                        <img src='${item.img}' />
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@ function detailsTemplate(item){
                 <p>Material: <span>${item.material}</span></p>
                 ${isOwner 
                     ? html`<div>
-                    <a href=”#” class="btn btn-info">Edit</a>
+                    <a href=”/edit” class="btn btn-info">Edit</a>
                     <a href=”#” class="btn btn-red">Delete</a>
                 </div>`
                     : ''}
