@@ -33,7 +33,7 @@ function detailsTemplate(item){
                 <p>Material: <span>${item.material}</span></p>
                 ${isOwner 
                     ? html`<div>
-                    <a href=”/edit/${item._id}” class="btn btn-info">Edit</a>
+                    <a href=edit/${item._id} class="btn btn-info">Edit</a>
                     <a href="" @click=${(e) => {e.preventDefault(); onDelete(item._id)}} class="btn btn-red">Delete</a>
                 </div>`
                     : ''}
