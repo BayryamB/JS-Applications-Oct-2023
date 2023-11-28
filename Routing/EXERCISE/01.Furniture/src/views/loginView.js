@@ -35,7 +35,6 @@ async function onLogin(e){
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email');
     const password = formData.get('password');
-    console.log(email, password);
     if(!email || !password){
         return alert('All fields are required');
     }

@@ -8,6 +8,7 @@ import { logoutPage } from "./views/logout.js";
 import { create } from "./views/createView.js";
 import { detailsView } from "./views/detailsView.js";
 import { editView } from "./views/editView.js";
+import { myFurnitureView } from "./views/myFurnitureView.js";
 
 page.start();
 updateNav();
@@ -21,6 +22,7 @@ page('/add', create);
 page('/details/:id', detailsView);
 page('/create', create);
 page('/details/edit/:id', editView);
+page('/myFurniture', myFurnitureView);
 
 
 
