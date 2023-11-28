@@ -1,7 +1,6 @@
 import { html, render } from "../../node_modules/lit-html/lit-html.js";
 import { get } from "../services/requester.js";
 function homeTemplate(data){
-    console.log(data);
     return html`
             <div class="row space-top">
             <div class="col-md-12">

@@ -7,16 +7,35 @@ const url = '/users/login'; //TO VERIFY
 
 function loginViewTemplate() {
     return html`
-    //SECTION
-    `;
-    //<form class="login-form" @submit=${onLogin}> 
+        <div class="row space-top">
+            <div class="col-md-12">
+                <h1>Login User</h1>
+                <p>Please fill all fields.</p>
+            </div>
+        </div>
+        <form @submit=${onLogin}>
+            <div class="row space-top">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="email">Email</label>
+                        <input class="form-control" id="email" type="text" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="password">Password</label>
+                        <input class="form-control" id="password" type="password" name="password">
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Login" />
+                </div>
+            </div>
+        </form>
+    `
 }
 async function onLogin(e){
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email');
     const password = formData.get('password');
-    console.log(email, password); //!!!
+    console.log(email, password);
     if(!email || !password){
         return alert('All fields are required');
     }
@@ -24,13 +43,13 @@ async function onLogin(e){
         const response = await post(url, {email, password});
         userService.setUserData(response);
         updateNav();
-        page.redirect('/'); // VERYFY REDIRECT
+        page.redirect('/');
     } catch (error) {
         return alert(error.message);
     }
 }
 export function loginView() {
-    return render(loginViewTemplate(), document.querySelector('main'));
+    return render(loginViewTemplate(), document.querySelector('.container'));
 }
 
 /*
