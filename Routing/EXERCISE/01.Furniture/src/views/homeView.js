@@ -1,6 +1,5 @@
 import { html, render } from "../../node_modules/lit-html/lit-html.js";
-import { get } from "../services/requester.js";
-function homeTemplate(data){
+function homeTemplate(data, ctx){
     return html`
             <div class="row space-top">
             <div class="col-md-12">
@@ -9,17 +8,18 @@ function homeTemplate(data){
             </div>
         </div>
         <div class="row space-top">
-            ${data.map(x => productsTemplate(x))}
+            ${data.map(x => productsTemplate(x, ctx))}
         </div>
     `;
 }
-export async function homeView(){
+export async function homeView(ctx){
     const response = await fetch('http://localhost:3030/data/catalog');
     const products = await response.json();
-    render(homeTemplate(products), document.querySelector('.container'));
+    render(homeTemplate(products, ctx), document.querySelector('.container'));
 }
 
-function productsTemplate(item) {
+function productsTemplate(item, ctx) {
+    ctx.params = item._id;
         return html`
         <div class="col-md-4">
                 <div class="card text-white bg-primary">
@@ -30,7 +30,7 @@ function productsTemplate(item) {
                                 <p>Price: <span>${item.price} $</span></p>
                             </footer>
                             <div>
-                                <a href=”/details” class="btn btn-info">Details</a>
+                                <a href=details/${item._id} class="btn btn-info">Details</a>
                             </div>
                     </div>
                 </div>
