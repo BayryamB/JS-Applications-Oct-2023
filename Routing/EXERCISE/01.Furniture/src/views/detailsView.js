@@ -1,7 +1,7 @@
 import { html , render} from "../../node_modules/lit-html/lit-html.js";
 import page from "../../node_modules/page/page.mjs";
 import { userService } from "../services/userService.js";
-
+import { del } from "../services/requester.js";
 
 function detailsTemplate(item){
     const ownerId = item._ownerId;
@@ -33,8 +33,8 @@ function detailsTemplate(item){
                 <p>Material: <span>${item.material}</span></p>
                 ${isOwner 
                     ? html`<div>
-                    <a href=”/edit” class="btn btn-info">Edit</a>
-                    <a href=”#” class="btn btn-red">Delete</a>
+                    <a href=”/edit/${item._id}” class="btn btn-info">Edit</a>
+                    <a href="" @click=${(e) => {e.preventDefault(); onDelete(item._id)}} class="btn btn-red">Delete</a>
                 </div>`
                     : ''}
             </div>
@@ -46,4 +46,15 @@ export async function detailsView(ctx){
     const response = await fetch('http://localhost:3030/data/catalog/' + id);
     const item = await response.json();
     render(detailsTemplate(item), document.querySelector('.container'));
+}
+
+async function onDelete(id) {
+    const response = await fetch('http://localhost:3030/data/catalog/' + id, {
+        method: 'delete',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': userService.getUserData().accessToken
+        }
+        });
+    page.redirect('/');
 }

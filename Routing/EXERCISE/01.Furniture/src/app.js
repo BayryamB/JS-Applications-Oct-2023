@@ -7,6 +7,7 @@ import { registerPage } from "./views/registerView.js";
 import { logoutPage } from "./views/logout.js";
 import { create } from "./views/createView.js";
 import { detailsView } from "./views/detailsView.js";
+import { onDelete } from "./views/deleting.js";
 
 page.start();
 updateNav();
@@ -19,6 +20,7 @@ page('/logout', logoutPage);
 page('/add', create);
 page('/details/:id', detailsView);
 page('/create', create);
+page('/delete/:id', onDelete);
 
 
 
