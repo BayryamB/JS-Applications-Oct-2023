@@ -1,4 +1,4 @@
-import { userData } from "./getUserData.js";
+import { userService } from "./userService.js";
 
 const host = "http://localhost:3030";
 
@@ -13,8 +13,7 @@ async function requester(method, url, data){
         option.body = JSON.stringify(data);
     }
 
-    const userInfo = userData.getUserData();
-    console.log(userInfo);
+    const userInfo = userService.getUserData();
     if(userInfo){
         option.headers['x-authorization'] = userInfo.accessToken;
     }
@@ -31,7 +30,7 @@ async function requester(method, url, data){
         return response.json();
     } catch (error) {
         alert(error.message);
-        throw new Error(error)
+        throw new Error(error);
     }
     
 }
@@ -42,7 +41,7 @@ export function get(url) {
 export function post(url, data) {
     return requester('POST', url, data);
 }
-export function put(url) {
+export function put(url, data) {
     return requester('PUT', url, data);
 }
 export function del(url) {
