@@ -24,16 +24,16 @@ function detailsTemplate(data){
         </div>
 
         <h3>Going: <span id="go">0</span> times.</h3>
-            ${checker(ownerId, userId)}
+            ${checker(ownerId, userId, data)}
         </div>
     </section>
     `
 }
-function checker(ownerId, userId){
+function checker(ownerId, userId, data){
     if(ownerId == userId){
         return html`
         <div id="action-buttons">
-            <a href="" id="edit-btn">Edit</a>
+            <a href="/edit/${data._id}" id="edit-btn">Edit</a>
             <a href="" id="delete-btn">Delete</a>
         </div>`
     }else if(userService.getUserData()){
