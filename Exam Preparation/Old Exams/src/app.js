@@ -18,6 +18,7 @@ page('/register', registerPage);
 page('/logout', logoutPage);
 page('/add', create);
 page('/events', getEvents);
+page('/addEvent', create);
 
 
 
