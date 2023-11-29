@@ -9,6 +9,7 @@ import { create } from "./views/createView.js";
 import { getEvents } from "./views/dashboardView.js";
 import { details } from "./views/details.js";
 import { edit } from "./views/editView.js";
+import { deleteEvent } from "./views/deleteView.js";
 
 page.start();
 updateNav();
@@ -23,6 +24,7 @@ page('/events', getEvents);
 page('/addEvent', create);
 page('/details/:id', details);
 page('/edit/:id', edit);
+page('/delete/:id', deleteEvent);
 
 
 

@@ -34,7 +34,7 @@ function checker(ownerId, userId, data){
         return html`
         <div id="action-buttons">
             <a href="/edit/${data._id}" id="edit-btn">Edit</a>
-            <a href="" id="delete-btn">Delete</a>
+            <a href="/delete/${data._id}" id="delete-btn">Delete</a>
         </div>`
     }else if(userService.getUserData()){
         return html`
