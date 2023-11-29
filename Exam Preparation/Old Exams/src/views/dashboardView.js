@@ -32,7 +32,7 @@ function productTemplate(x){
                 ${x.name}
                 </p>
                 <p class="date">${x.date}</p>
-                <a class="details-btn" href="">Details</a>
+                <a class="details-btn" href="/details/${x._id}">Details</a>
             </div>
     `
 }
