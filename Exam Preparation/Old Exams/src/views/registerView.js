@@ -44,7 +44,6 @@ async function onRegister(e){
     const email = formData.get('email');
     const password = formData.get('password');
     const rePass = formData.get('re-password');
-    console.log(email, password, rePass);
     if(!email || !password || !rePass){
         return alert('All fields are required');
     }else if(rePass !== password){
