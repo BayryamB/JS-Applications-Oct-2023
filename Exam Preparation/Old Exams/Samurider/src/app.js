@@ -17,7 +17,7 @@ page('/login', loginView);
 page('/register', registerPage);
 page('/logout', logoutPage);
 page('/dashboard', productsView);
-page('/add', create);
+page('/create', create);
 
 
 
