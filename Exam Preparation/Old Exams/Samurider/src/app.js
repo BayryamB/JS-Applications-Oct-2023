@@ -6,6 +6,7 @@ import { loginView } from "./views/loginView.js";
 import { registerPage } from "./views/registerView.js";
 import { logoutPage } from "./views/logout.js";
 import { create } from "./views/createView.js";
+import { productsView } from "./views/dashboardView.js";
 
 page.start();
 updateNav();
@@ -15,6 +16,7 @@ page('/', homeView);
 page('/login', loginView);
 page('/register', registerPage);
 page('/logout', logoutPage);
+page('/dashboard', productsView);
 page('/add', create);
 
 
