@@ -3,12 +3,38 @@ import { html, render } from "../../node_modules/lit-html/lit-html.js";
 import { userService } from "../services/userService.js";
 import { post } from "../services/requester.js";
 import { updateNav } from "../app.js";
-const url = '/users/register'; // TO VERIFY
+const url = '/users/register';
 
 
 function registerView () {
     return html`
-    //@submit=${onRegister}
+            <section id="register">
+          <div class="form">
+            <h2>Register</h2>
+            <form class="register-form" @submit=${onRegister}>
+              <input
+                type="text"
+                name="email"
+                id="register-email"
+                placeholder="email"
+              />
+              <input
+                type="password"
+                name="password"
+                id="register-password"
+                placeholder="password"
+              />
+              <input
+                type="password"
+                name="re-password"
+                id="repeat-password"
+                placeholder="repeat password"
+              />
+              <button type="submit">register</button>
+              <p class="message">Already registered? <a href="/login">Login</a></p>
+            </form>
+          </div>
+        </section>
     `
 }
 
@@ -18,7 +44,7 @@ async function onRegister(e){
     const email = formData.get('email');
     const password = formData.get('password');
     const rePass = formData.get('re-password');
-    console.log(email, password, rePass);  //!!!
+    console.log(email, password, rePass);
     if(!email || !password || !rePass){
         return alert('All fields are required');
     }else if(rePass !== password){
@@ -28,7 +54,7 @@ async function onRegister(e){
         const response = await post(url, {email, password});
         userService.setUserData(response);
         updateNav();
-        page.redirect('/'); // VERYFY REDIRECT
+        page.redirect('/');
     } catch (error) {
         return alert(error.message);
     }

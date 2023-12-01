@@ -4,7 +4,7 @@ import { updateNav } from "../app.js";
 
 
 export async function logoutPage() {
-    await get('/users/logout');  //TO VERIFY
+    await get('/users/logout');
     userService.removeUserData();
     updateNav();
 }
