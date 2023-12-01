@@ -66,6 +66,9 @@ async function onEdit(id){
     const mileage = formData.get('mileage');
     const contact = formData.get('contact');
     const about = formData.get('about');
+    if(!model || !imageUrl || !year || !mileage || !contact || !about){
+        return alert('All fields are required');
+    }
     const response = await put(url + id, {model, imageUrl, year, mileage, contact, about});
     page.redirect('/details/' + id);
 }

@@ -8,10 +8,13 @@ const url = '/data/motorcycles/';
 
 function detailsTemplate(data){
     let isOwner = false;
-    let userId = userService.getUserId();
     let ownerId = data._ownerId;
-    if(ownerId === userId){
-        isOwner = true;
+    const userInfo = userService.getUserData();
+    if(userInfo){
+        const userId = userInfo._id;
+        if(ownerId === userId){
+            isOwner = true;
+        }
     }
 
     return html`

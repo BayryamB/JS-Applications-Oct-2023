@@ -9,6 +9,7 @@ import { create } from "./views/createView.js";
 import { productsView } from "./views/dashboardView.js";
 import { detailsView } from "./views/detailsView.js";
 import { edit } from "./views/editView.js";
+import { deleteView } from "./views/deleteView.js";
 
 page.start();
 updateNav();
@@ -22,6 +23,7 @@ page('/dashboard', productsView);
 page('/create', create);
 page('/details/:id', detailsView);
 page('/edit/:id', edit);
+page('/delete/:id', deleteView);
 
 
 
